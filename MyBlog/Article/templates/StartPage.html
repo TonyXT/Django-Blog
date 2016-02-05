@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">My Site</a>
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
+        </ul>
+    </div>
+
+</div>
+
+
+<div class="splash-container">
+    {% if messages %}
+        {% for message in messages %}
+     <div class="alert alert-danger" role="alert" style="margin-top: 59px">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ message }}
+     </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="splash">
+        <div class="pure-alert-error">{{ error }}</div>
+        <h1 class="splash-head">Tang's Blog System</h1>
+        <p class="splash-subhead">
+            Welcome to my blog system. Enjoy.
+        </p>
+        <div class="pure-u-1">
+            <button id="signin" class="button-signin pure-button">Sign In</button>
+            <button id="signup" class="button-signup pure-button">Sign Up</button>
+        </div>
+    </div>
+</div>
+	<div class="cd-user-modal{{ visible }}">
+		<div class="cd-user-modal-container">
+			<ul class="cd-switcher">
+				<li><a href="#0">Sign In</a></li>
+				<li><a href="#0" class="{{ liselected }}">Sign Up</a></li>
+			</ul>
+
+			<div id="cd-login"> <!-- sign in form -->
+				<form class="cd-form" method="post" action="/login/">{% csrf_token %}
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signin-username">Username</label>
+						<input class="full-width has-padding has-border" id="signin-username" name="username" type="text" placeholder="Please input your username">
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signin-password">Password</label>
+						<input class="full-width has-padding has-border" id="signin-password" name="password" type="password"  placeholder="Please input your password">
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="remember-me" checked>
+						<label for="remember-me">Remember me</label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2" type="submit" value="Sign in">
+					</p>
+				</form>
+			</div>
+
+			<div id="cd-signup" class="{{ selected }}"> <!-- sing up form -->
+				<form class="cd-form" method="post" action="">{% csrf_token %}
+                    <div>{% if form.username.errors %}
+                         <span class="text-danger pull-left">{{ form.username.errors }}</span>
+                        {% endif %}
+                    </div>
+					<p class="fieldset">
+						<label class="image-replace cd-username" for="signup-username">{{ form.username.label }} </label>
+                        {{ form.username }}
+					</p>
+                    <div>{% if form.email.errors %}
+                         <span class="text-danger pull-left">{{ form.email.errors }}</span>
+                        {% endif %}
+                    </div>
+					<p class="fieldset">
+						<label class="image-replace cd-email" for="signup-email">{{ form.email.label }}</label>
+						{{ form.email }}
+					</p>
+
+					<p class="fieldset">
+						<label class="image-replace cd-password" for="signup-password">{{ form.password.label }}</label>
+						{{ form.password }}
+					</p>
+
+					<p class="fieldset">
+						<input type="checkbox" id="accept-terms">
+						<label for="accept-terms">I have read and agree <a href="#0">User Agreement</a></label>
+					</p>
+
+					<p class="fieldset">
+						<input class="full-width2" type="submit" value="Sign Up">
+					</p>
+				</form>
+			</div>
+
+			<a href="#0" class="cd-close-form">Close</a>
+		</div>
+	</div>
+{% endblock %}
