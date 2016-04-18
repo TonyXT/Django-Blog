@@ -1,2 +1,2 @@
-# First
-Read me please
+# Django Blog
+Application of a Blog
